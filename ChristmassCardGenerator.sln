@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChristmassCardGenerator", "ChristmassCardGenerator\ChristmassCardGenerator.csproj", "{C400A483-8665-4AF6-B120-D99E72745875}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C400A483-8665-4AF6-B120-D99E72745875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C400A483-8665-4AF6-B120-D99E72745875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C400A483-8665-4AF6-B120-D99E72745875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C400A483-8665-4AF6-B120-D99E72745875}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {970EEA2A-1721-40EC-95FC-E30B3EBF6900}
+	EndGlobalSection
+EndGlobal
