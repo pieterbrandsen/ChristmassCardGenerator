@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ChristmassCardGenerator.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChristmassCardGenerator.Data
+namespace ChristmassCardGenerator.DAL
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -12,5 +13,7 @@ namespace ChristmassCardGenerator.Data
             : base(options)
         {
         }
+       public DbSet<Card> Cards { get; set; }
+       public DbSet<ApplicationUser> AppUsers { get; set; }
     }
 }
