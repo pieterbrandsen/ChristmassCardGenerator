@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 'christmasscardgenerator'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_bd3ce9bdc1f542bab48219135e403946 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_366e7953ef644e088b6273f186a5b939 }}
         package: ${{env.DOTNET_ROOT}}/myapp 
