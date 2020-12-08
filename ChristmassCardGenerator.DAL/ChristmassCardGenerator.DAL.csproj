@@ -12,4 +12,8 @@
     <ProjectReference Include="..\ChristmassCardGenerator.Models\ChristmassCardGenerator.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,5 @@
 ﻿using System;
-using ChristmassCardGenerator.Data;
+using ChristmassCardGenerator.DAL;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
