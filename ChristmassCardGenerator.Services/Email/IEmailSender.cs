@@ -5,7 +5,7 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Threading.Tasks;
 
-namespace WebPWrecover.Services
+namespace ChristmassCardGenerator.Services
 {
     public class EmailSender : IEmailSender
     {

@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ChristmassCardGenerator.DAL\ChristmassCardGenerator.DAL.csproj" />
     <ProjectReference Include="..\ChristmassCardGenerator.Models\ChristmassCardGenerator.Models.csproj" />
+    <ProjectReference Include="..\ChristmassCardGenerator.Services\ChristmassCardGenerator.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChristmassCardGenerator", "ChristmassCardGenerator\ChristmassCardGenerator.csproj", "{C400A483-8665-4AF6-B120-D99E72745875}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChristmassCardGenerator", "ChristmassCardGenerator\ChristmassCardGenerator.csproj", "{C400A483-8665-4AF6-B120-D99E72745875}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChristmassCardGenerator.DAL", "ChristmassCardGenerator.DAL\ChristmassCardGenerator.DAL.csproj", "{EE99B6D7-CD51-4863-9776-D46D2EAA7550}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChristmassCardGenerator.DAL", "ChristmassCardGenerator.DAL\ChristmassCardGenerator.DAL.csproj", "{EE99B6D7-CD51-4863-9776-D46D2EAA7550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChristmassCardGenerator.Models", "ChristmassCardGenerator.Models\ChristmassCardGenerator.Models.csproj", "{11AE480E-91AD-4D52-815C-217AF24162F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChristmassCardGenerator.Models", "ChristmassCardGenerator.Models\ChristmassCardGenerator.Models.csproj", "{11AE480E-91AD-4D52-815C-217AF24162F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChristmassCardGenerator.Services", "ChristmassCardGenerator.Services\ChristmassCardGenerator.Services.csproj", "{8E11E857-5F09-4A96-A8CA-06517AD5AAC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{11AE480E-91AD-4D52-815C-217AF24162F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11AE480E-91AD-4D52-815C-217AF24162F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11AE480E-91AD-4D52-815C-217AF24162F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E11E857-5F09-4A96-A8CA-06517AD5AAC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E11E857-5F09-4A96-A8CA-06517AD5AAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E11E857-5F09-4A96-A8CA-06517AD5AAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E11E857-5F09-4A96-A8CA-06517AD5AAC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
