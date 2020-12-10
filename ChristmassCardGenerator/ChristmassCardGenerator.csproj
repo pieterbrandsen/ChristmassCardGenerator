@@ -21,4 +21,8 @@
     <ProjectReference Include="..\ChristmassCardGenerator.Services\ChristmassCardGenerator.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
 </Project>
