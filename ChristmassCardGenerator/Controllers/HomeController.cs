@@ -18,12 +18,8 @@ namespace ChristmassCardGenerator.Controllers
             _logger = logger;
         }
 
+        [Route("")]
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }

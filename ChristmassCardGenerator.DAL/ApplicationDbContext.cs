@@ -14,5 +14,6 @@ namespace ChristmassCardGenerator.DAL
         {
         }
        public DbSet<Card> Cards { get; set; }
+       public DbSet<EmailList> EmailLists { get; set; }
     }
 }
