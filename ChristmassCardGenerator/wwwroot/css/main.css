@@ -1,0 +1,47 @@
+body {
+  margin: auto;
+  padding: 4rem;
+  width: 75%;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  background-color: #EFECE8;
+}
+
+h1 {
+  font-family: 'Petit Formal Script', cursive;
+  color: darkred;
+  font-size: 4rem;
+  text-align: center;
+}
+
+#card-container {
+  margin: auto;
+  width: 92%;
+  max-height: 40%;
+  border: 1px solid grey;
+}
+
+.form-container {
+  margin: 2rem 7%;
+}
+
+.form-container .column {
+  padding: 1rem;
+}
+
+form, input, textarea, select {
+  width: 100%;
+  margin: 1rem 0;
+
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: darkgreen !important;
+}
+
+
+button:hover {
+  background-color: darkred;
+  color: white;
+  border: white;
+}

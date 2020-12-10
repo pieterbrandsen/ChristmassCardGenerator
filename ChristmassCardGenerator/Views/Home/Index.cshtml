@@ -3,5 +3,91 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1>Build Your Own Holiday Cards</h1>
+
+    <div class="row form-container">
+        <div class="one-half column">
+            <form>
+                <label for="title">Card Title:</label>
+                <input type="text" id="title" name="title">
+                <label for="from">From:</label>
+                <input type="text" id="from" name="from">
+                <label for="image">Background Image:</label>
+                <select id="image">
+                    <option value="./img/pony.png">Pony</option>
+                    <option value="./img/Pony2.jpg">Pony2</option>
+                </select>
+            </form>
+        </div>
+        <div class="one-half column">
+            <form>
+                <label for="msg">Message:</label>
+                <textarea id="msg" name="message"></textarea>
+                <button id="save-button">Save Card</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="card-container" class="row">
+        <div class="one-third column text-container">
+            <h2 id="card-title">Happy Holidays!</h2>
+            <p id="card-msg">Lorum Ipsum and a Happy New Year! We would like to thank our entire community for their support this year. We enjoyed all the challenged and achievements 2017 brought our way and we’re looking forward to what 2018 will bring.<br><br>May your holidays be filled with code and cocoa!</p>
+            <h3 id="card-from">Love Lighthouse Labs</h3>
+        </div>
+        <div class="two-thirds column">
+            <img src="./img/Pony2.jpg" id="card-image">
+            <div id="snow"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+    <script>
+        var cardContainer = document.getElementById('card-container');
+        var cardImage = document.getElementById('card-image');
+        var cardTitle = document.getElementById('card-title');
+        var cardMsg = document.getElementById('card-msg');
+        var cardFrom = document.getElementById('card-from');
+
+        var formTitle = document.getElementById('title');
+        var formFrom = document.getElementById('from');
+        var formMsg = document.getElementById('msg');
+        var formImage = document.getElementById('image');
+
+        var saveButton = document.getElementById('save-button');
+
+
+
+        formTitle.addEventListener('keyup', function (event) {
+            cardTitle.innerText = event.target.value;
+        })
+
+        formFrom.addEventListener('keyup', function (event) {
+            cardFrom.innerText = event.target.value;
+        })
+
+        formMsg.addEventListener('keyup', function (event) {
+            cardMsg.innerText = event.target.value;
+        })
+
+        formImage.addEventListener('change', function (event) {
+            cardImage.src = event.target.value;
+        })
+
+        function downloadURI(uri, name) {
+            var link = document.createElement("a");
+            link.download = name;
+            link.href = uri;
+            link.click();
+        }
+
+        saveButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            html2canvas(cardContainer, {
+                onrendered: function (canvas) {
+                    var myImage = canvas.toDataURL("image/jpg");
+                    downloadURI("data:" + myImage, "HappyHolidays.jpg");
+                }
+            });
+        });
+    </script>
 </div>
