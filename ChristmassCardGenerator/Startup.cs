@@ -44,20 +44,14 @@ namespace ChristmassCardGenerator
             services.AddControllersWithViews();
 
 
-            // requires
-            // using Microsoft.AspNetCore.Identity.UI.Services;
-            // using WebPWrecover.Services;
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
-            //services.Configure<RazorViewEngineOptions>(options =>
-            //{
-            //    options.ViewLocationExpanders.Add(new MyViewLocationExpander());
-            //});
             services.Configure<RazorViewEngineOptions>(o =>
             {
-                //o.ViewLocationFormats.Clear();
                 o.ViewLocationFormats.Add
         ("/Areas/Identity/Pages/Account/Manage/EmailLists/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
+                o.ViewLocationFormats.Add
+("/Areas/Identity/Pages/Account/Manage/Cards/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
                 o.ViewLocationFormats.Add
 ("/Areas/Identity/Pages/Account/Manage/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
             });
@@ -91,21 +85,6 @@ namespace ChristmassCardGenerator
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
-        }
-    }
-
-    public class MyViewLocationExpander : IViewLocationExpander
-    {
-        public void PopulateValues(ViewLocationExpanderContext context) { }
-
-        public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)
-        {
-            return new[]
-            {
-                //"/Identity/Account/Manage/EmailLists/{0}.cshtml",
-                "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml",
-                "/Areas/Identity/Pages/Account/Manage/EmailLists/{0}.cshtml",
-        }.Union(viewLocations); // add `.Union(viewLocations)` to add default locations
         }
     }
 }
