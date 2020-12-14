@@ -49,9 +49,17 @@ namespace ChristmassCardGenerator
             // using WebPWrecover.Services;
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
-            services.Configure<RazorViewEngineOptions>(options =>
+            //services.Configure<RazorViewEngineOptions>(options =>
+            //{
+            //    options.ViewLocationExpanders.Add(new MyViewLocationExpander());
+            //});
+            services.Configure<RazorViewEngineOptions>(o =>
             {
-                options.ViewLocationExpanders.Add(new MyViewLocationExpander());
+                //o.ViewLocationFormats.Clear();
+                o.ViewLocationFormats.Add
+        ("/Areas/Identity/Pages/Account/Manage/EmailLists/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
+                o.ViewLocationFormats.Add
+("/Areas/Identity/Pages/Account/Manage/{1]/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
             });
 
         }
