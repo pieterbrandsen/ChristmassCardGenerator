@@ -47,23 +47,7 @@ namespace ChristmassCardGenerator.Controllers
         // GET: Cards/Create
         public IActionResult Create()
         {
-            return View();
-        }
-
-        // POST: Cards/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,CardTitle,FromTitle,ImageName,Message")] Card card)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(card);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(card);
+            return RedirectPermanent("/");
         }
 
         // GET: Cards/Edit/5
