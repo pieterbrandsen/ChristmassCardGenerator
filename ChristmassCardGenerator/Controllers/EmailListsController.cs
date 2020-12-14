@@ -8,12 +8,15 @@ using Microsoft.EntityFrameworkCore;
 using ChristmassCardGenerator.DAL;
 using ChristmassCardGenerator.Models;
 
+using Microsoft.AspNetCore.Identity;
+
 namespace ChristmassCardGenerator.Controllers
 {
     [Route("/Identity/Account/Manage/EmailLists/[Action]")]
     public class EmailListsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> UserManager;
 
         public EmailListsController(ApplicationDbContext context)
         {
@@ -55,8 +58,10 @@ namespace ChristmassCardGenerator.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name")] EmailList emailList)
+        public async Task<IActionResult> Create([Bind("ID,Name,Email")] EmailList emailList)
         {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+            emailList.ApplicationUser = user;
             if (ModelState.IsValid)
             {
                 _context.Add(emailList);
@@ -87,7 +92,7 @@ namespace ChristmassCardGenerator.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] EmailList emailList)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Email")] EmailList emailList)
         {
             if (id != emailList.ID)
             {
