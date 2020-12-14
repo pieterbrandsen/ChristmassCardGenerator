@@ -14,6 +14,7 @@ namespace ChristmassCardGenerator.Areas.Identity.Pages.Account.Manage
 
         public static string ChangePassword => "ChangePassword";
         public static string EmailLists => "EmailLists";
+        public static string Cards => "Cards";
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
@@ -21,6 +22,7 @@ namespace ChristmassCardGenerator.Areas.Identity.Pages.Account.Manage
 
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
         public static string EmailListsClass(ViewContext viewContext) => PageNavClass(viewContext, EmailLists);
+        public static string CardsClass(ViewContext viewContext) => PageNavClass(viewContext, Cards);
 
         private static string PageNavClass(ViewContext viewContext, string page)
         {
