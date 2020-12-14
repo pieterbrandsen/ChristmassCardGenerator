@@ -59,7 +59,7 @@ namespace ChristmassCardGenerator
                 o.ViewLocationFormats.Add
         ("/Areas/Identity/Pages/Account/Manage/EmailLists/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
                 o.ViewLocationFormats.Add
-("/Areas/Identity/Pages/Account/Manage/{1]/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
+("/Areas/Identity/Pages/Account/Manage/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
             });
 
         }

@@ -1,7 +1,8 @@
 ﻿@using ChristmassCardGenerator.Models;
+@using ChristmassCardGenerator.Constants; 
 <ul class="nav nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailListClass(ViewContext)" id="emailList" asp-page="./EmailLists/Index">Email List</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" href="@PagePaths.IdentityManage/Index">Profile</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" href="@PagePaths.IdentityManage/Email">Email</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" href="@PagePaths.IdentityManage/ChangePassword">Password</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailListsClass(ViewContext)" id="emailLists" href="@PagePaths.IdentityManage/EmailLists/Index">Email List</a></li>
 </ul>

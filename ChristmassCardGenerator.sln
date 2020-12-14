@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChristmassCardGenerator.DAL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChristmassCardGenerator.Models", "ChristmassCardGenerator.Models\ChristmassCardGenerator.Models.csproj", "{11AE480E-91AD-4D52-815C-217AF24162F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChristmassCardGenerator.Services", "ChristmassCardGenerator.Services\ChristmassCardGenerator.Services.csproj", "{8E11E857-5F09-4A96-A8CA-06517AD5AAC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChristmassCardGenerator.Services", "ChristmassCardGenerator.Services\ChristmassCardGenerator.Services.csproj", "{8E11E857-5F09-4A96-A8CA-06517AD5AAC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChristmassCardGenerator.Constants", "ChristmassCardGenerator.Constants\ChristmassCardGenerator.Constants.csproj", "{7DC8A1FE-F2D5-4542-8A4D-7958777807B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8E11E857-5F09-4A96-A8CA-06517AD5AAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E11E857-5F09-4A96-A8CA-06517AD5AAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E11E857-5F09-4A96-A8CA-06517AD5AAC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DC8A1FE-F2D5-4542-8A4D-7958777807B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DC8A1FE-F2D5-4542-8A4D-7958777807B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DC8A1FE-F2D5-4542-8A4D-7958777807B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DC8A1FE-F2D5-4542-8A4D-7958777807B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
