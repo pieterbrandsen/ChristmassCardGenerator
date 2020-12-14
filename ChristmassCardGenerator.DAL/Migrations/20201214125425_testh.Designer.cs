@@ -4,20 +4,37 @@ using ChristmassCardGenerator.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ChristmassCardGenerator.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201214125425_testh")]
+    partial class testh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
+
+            modelBuilder.Entity("ApplicationUserEmailList", b =>
+                {
+                    b.Property<int>("EmailListsID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ListId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("EmailListsID", "ListId");
+
+                    b.HasIndex("ListId");
+
+                    b.ToTable("ApplicationUserEmailList");
+                });
 
             modelBuilder.Entity("ChristmassCardGenerator.Models.ApplicationUser", b =>
                 {
@@ -126,18 +143,10 @@ namespace ChristmassCardGenerator.DAL.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("EmailLists");
                 });
@@ -277,17 +286,25 @@ namespace ChristmassCardGenerator.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ApplicationUserEmailList", b =>
+                {
+                    b.HasOne("ChristmassCardGenerator.Models.EmailList", null)
+                        .WithMany()
+                        .HasForeignKey("EmailListsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ChristmassCardGenerator.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("ListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ChristmassCardGenerator.Models.Card", b =>
                 {
                     b.HasOne("ChristmassCardGenerator.Models.ApplicationUser", null)
                         .WithMany("Cards")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
-            modelBuilder.Entity("ChristmassCardGenerator.Models.EmailList", b =>
-                {
-                    b.HasOne("ChristmassCardGenerator.Models.ApplicationUser", null)
-                        .WithMany("EmailLists")
                         .HasForeignKey("ApplicationUserId");
                 });
 
@@ -345,8 +362,6 @@ namespace ChristmassCardGenerator.DAL.Migrations
             modelBuilder.Entity("ChristmassCardGenerator.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Cards");
-
-                    b.Navigation("EmailLists");
                 });
 #pragma warning restore 612, 618
         }
