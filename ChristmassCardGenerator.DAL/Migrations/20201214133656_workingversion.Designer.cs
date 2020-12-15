@@ -4,14 +4,16 @@ using ChristmassCardGenerator.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ChristmassCardGenerator.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201214133656_workingversion")]
+    partial class workingversion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -286,11 +288,9 @@ namespace ChristmassCardGenerator.DAL.Migrations
 
             modelBuilder.Entity("ChristmassCardGenerator.Models.EmailList", b =>
                 {
-                    b.HasOne("ChristmassCardGenerator.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("ChristmassCardGenerator.Models.ApplicationUser", null)
                         .WithMany("EmailLists")
                         .HasForeignKey("ApplicationUserId");
-
-                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
