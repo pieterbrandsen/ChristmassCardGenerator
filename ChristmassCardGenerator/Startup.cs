@@ -48,12 +48,8 @@ namespace ChristmassCardGenerator
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.Configure<RazorViewEngineOptions>(o =>
             {
-                o.ViewLocationFormats.Add
-        ("/Areas/Identity/Pages/Account/Manage/EmailLists/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
-                o.ViewLocationFormats.Add
-("/Areas/Identity/Pages/Account/Manage/Cards/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
-                o.ViewLocationFormats.Add
-("/Areas/Identity/Pages/Account/Manage/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
+                o.ViewLocationFormats.Add("/Areas/Identity/Pages/Account/Manage/{1}/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
+                o.ViewLocationFormats.Add("/Areas/Identity/Pages/Account/Manage/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
             });
 
         }
