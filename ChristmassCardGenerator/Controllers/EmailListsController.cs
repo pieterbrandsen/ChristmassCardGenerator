@@ -16,7 +16,6 @@ namespace ChristmassCardGenerator.Controllers
     public class EmailListsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> UserManager;
 
         public EmailListsController(ApplicationDbContext context)
         {
