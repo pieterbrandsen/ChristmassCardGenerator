@@ -13,5 +13,6 @@ namespace ChristmassCardGenerator.Models
         public string FromTitle { get; set; }
         public string ImageName { get; set; }
         public string Message { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

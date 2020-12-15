@@ -23,7 +23,7 @@ namespace ChristmassCardGenerator.Controllers
         // GET: Cards
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Cards.ToListAsync());
+            return View(await _context.Cards.Include(c => c.ApplicationUser).Where(c => c.ApplicationUser.UserName == User.Identity.Name).ToListAsync());
         }
 
         // GET: Cards/Details/5

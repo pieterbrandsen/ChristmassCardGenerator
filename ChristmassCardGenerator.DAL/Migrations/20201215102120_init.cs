@@ -160,11 +160,10 @@ namespace ChristmassCardGenerator.DAL.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CardCategory = table.Column<int>(type: "int", nullable: false),
-                    TextSize = table.Column<int>(type: "int", nullable: false),
-                    Font = table.Column<int>(type: "int", nullable: false),
-                    ImageSize = table.Column<int>(type: "int", nullable: false),
-                    TimesUsed = table.Column<int>(type: "int", nullable: false),
+                    CardTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FromTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -172,6 +171,27 @@ namespace ChristmassCardGenerator.DAL.Migrations
                     table.PrimaryKey("PK_Cards", x => x.ID);
                     table.ForeignKey(
                         name: "FK_Cards_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailLists",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailLists", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_EmailLists_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -221,6 +241,11 @@ namespace ChristmassCardGenerator.DAL.Migrations
                 name: "IX_Cards_ApplicationUserId",
                 table: "Cards",
                 column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmailLists_ApplicationUserId",
+                table: "EmailLists",
+                column: "ApplicationUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -242,6 +267,9 @@ namespace ChristmassCardGenerator.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cards");
+
+            migrationBuilder.DropTable(
+                name: "EmailLists");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

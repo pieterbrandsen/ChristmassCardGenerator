@@ -279,9 +279,11 @@ namespace ChristmassCardGenerator.DAL.Migrations
 
             modelBuilder.Entity("ChristmassCardGenerator.Models.Card", b =>
                 {
-                    b.HasOne("ChristmassCardGenerator.Models.ApplicationUser", null)
+                    b.HasOne("ChristmassCardGenerator.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Cards")
                         .HasForeignKey("ApplicationUserId");
+
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("ChristmassCardGenerator.Models.EmailList", b =>

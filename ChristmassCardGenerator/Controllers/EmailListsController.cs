@@ -26,7 +26,7 @@ namespace ChristmassCardGenerator.Controllers
         // GET: EmailLists
         public async Task<IActionResult> Index()
         {
-            return View(await _context.EmailLists.ToListAsync());
+            return View(await _context.EmailLists.Include(c => c.ApplicationUser).Where(c => c.ApplicationUser.UserName == User.Identity.Name).ToListAsync());
         }
 
         // GET: EmailLists/Details/5
