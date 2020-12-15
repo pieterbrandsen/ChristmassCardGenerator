@@ -1,0 +1,35 @@
+﻿@model List<IGrouping<ContactTypes, EmailList>>
+
+@{
+    ViewData["Title"] = "Send Card";
+}
+
+<h1>Select a card</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Count)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Count();
+                    @item.Key;
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item">Use</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index">Return to Homepage</a>
+<br />

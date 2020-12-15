@@ -38,10 +38,11 @@ namespace ChristmassCardGenerator.Controllers
             return View(card);
         }
 
-        public async Task<IActionResult> Card(string saveButton, string loadButton, [Bind("ID,CardTitle,FromTitle,ImageName,Message")] Card card)
+        public async Task<IActionResult> Card(string saveButton, string loadButton, string sendButton, [Bind("ID,CardTitle,FromTitle,ImageName,Message")] Card card)
         {
             if (saveButton != null) return RedirectToActionPermanent("SaveCard", card);
             else if (loadButton != null) return RedirectToActionPermanent("LoadCard");
+            else if (sendButton != null) return RedirectToActionPermanent("SendCard", card);
             else return RedirectToActionPermanent("Index");
         }
 
@@ -56,7 +57,7 @@ namespace ChristmassCardGenerator.Controllers
             _context.Add(card);
             await _context.SaveChangesAsync();
 
-            return View();
+            return RedirectPermanent("/Success");
         }
 
         public IActionResult LoadCard()
@@ -68,6 +69,36 @@ namespace ChristmassCardGenerator.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private class SendCardViewModel
+        {
+            public Card Card { get; set; }
+            public List<IGrouping<ContactTypes,EmailList>> List { get; set; }
+        }
+        public async Task<IActionResult> SendCard([Bind("ID,CardTitle,FromTitle,ImageName,Message")] Card card)
+        {
+            var list = await _context.EmailLists.Include(c => c.ApplicationUser).Where(c => c.ApplicationUser.UserName == User.Identity.Name).ToListAsync();
+            var groupedList = list.GroupBy(c => c.ContactType).ToList();
+
+            SendCardViewModel viewModel = new SendCardViewModel();
+            viewModel.Card = card;
+            viewModel.List = groupedList;
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendCard([Bind("ID,CardTitle,FromTitle,ImageName,Message")] Card card, ContactTypes contactType)
+        {
+            var list = await _context.EmailLists.Where(e => e.ContactType == contactType || contactType.ToString() == "All").ToListAsync();
+            if (list == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectPermanent("/Success");
         }
     }
 }

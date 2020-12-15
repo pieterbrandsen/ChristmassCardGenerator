@@ -14,7 +14,7 @@ namespace ChristmassCardGenerator.Models
         public string FromTitle { get; set; }
         public string ImageName { get; set; }
         [NotMapped]
-        public string ShortImageName => ImageName.Split(".")[0];
+        public string ShortImageName => ImageName?.Split(".")[0];
         public string Message { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
     }
