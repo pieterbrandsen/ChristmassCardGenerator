@@ -50,34 +50,36 @@
         </form>
     </div>
 
-    @if (Model == null)
-    {
-        <div id="card-container" class="row">
-            <div class="one-third column text-container">
-                <h2 id="card-title">@DefaultCardValues.CardTitle</h2>
-                <p id="card-msg">@DefaultCardValues.Message</p>
-                <h3 id="card-from">@DefaultCardValues.FromTitle</h3>
+    <div class="mb-md-5">
+        @if (Model == null)
+        {
+            <div id="card-container" class="row">
+                <div class="one-third column text-container">
+                    <h2 id="card-title">@DefaultCardValues.CardTitle</h2>
+                    <p id="card-msg">@DefaultCardValues.Message</p>
+                    <h3 id="card-from">@DefaultCardValues.FromTitle</h3>
+                </div>
+                <div class="two-thirds column">
+                    <img src="/img/@DefaultCardValues.ImageName" id="card-image">
+                    <div id="snow"></div>
+                </div>
             </div>
-            <div class="two-thirds column">
-                <img src="/img/@DefaultCardValues.ImageName" id="card-image">
-                <div id="snow"></div>
+        }
+        else
+        {
+            <div id="card-container" class="row">
+                <div class="one-third column text-container">
+                    <h2 id="card-title">@Model.CardTitle</h2>
+                    <p id="card-msg">@Model.Message</p>
+                    <h3 id="card-from">@Model.FromTitle</h3>
+                </div>
+                <div class="two-thirds column">
+                    <img src="/img/@Model.ImageName" id="card-image">
+                    <div id="snow"></div>
+                </div>
             </div>
-        </div>
-    }
-    else
-    {
-        <div id="card-container" class="row">
-            <div class="one-third column text-container">
-                <h2 id="card-title">@Model.CardTitle</h2>
-                <p id="card-msg">@Model.Message</p>
-                <h3 id="card-from">@Model.FromTitle</h3>
-            </div>
-            <div class="two-thirds column">
-                <img src="/img/@Model.ImageName" id="card-image">
-                <div id="snow"></div>
-            </div>
-        </div>
-    }
+        }
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
     <script>

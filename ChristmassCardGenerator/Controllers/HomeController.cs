@@ -64,24 +64,6 @@ namespace ChristmassCardGenerator.Controllers
             return View(_context.Cards.Include(c => c.ApplicationUser).Where(c => c.ApplicationUser.UserName == User.Identity.Name));
         }
 
-        //[Route("[Action]")]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> LoadCard(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var card = await _context.Cards.FindAsync(id);
-        //    if (card == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return View(card);
-        //}
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
