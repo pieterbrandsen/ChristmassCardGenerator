@@ -9,6 +9,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ChristmassCardGenerator.Constants;
+using static ChristmassCardGenerator.ViewModels.Controllers.HomeControllerViewModel;
+using System.Text.Json;
 
 namespace ChristmassCardGenerator.Controllers
 {
@@ -27,7 +29,14 @@ namespace ChristmassCardGenerator.Controllers
         {
             if (id == null)
             {
-                return View();
+                Card newCard = new Card
+                {
+                    CardTitle = DefaultCardValues.CardTitle,
+                    FromTitle = DefaultCardValues.FromTitle,
+                    ImageName = DefaultCardValues.ImageName,
+                    Message = DefaultCardValues.Message
+                };
+                return View(newCard);
             }
 
             var card = await _context.Cards.FindAsync(id);
@@ -38,7 +47,12 @@ namespace ChristmassCardGenerator.Controllers
             return View(card);
         }
 
-        public async Task<IActionResult> Card(string saveButton, string loadButton, string sendButton, [Bind("ID,CardTitle,FromTitle,ImageName,Message")] Card card)
+        public IActionResult Success()
+        {
+            return View();
+        }
+
+        public IActionResult Card(string saveButton, string loadButton, string sendButton, [Bind("ID,CardTitle,FromTitle,ImageName,Message")] Card card)
         {
             if (saveButton != null) return RedirectToActionPermanent("SaveCard", card);
             else if (loadButton != null) return RedirectToActionPermanent("LoadCard");
@@ -57,7 +71,7 @@ namespace ChristmassCardGenerator.Controllers
             _context.Add(card);
             await _context.SaveChangesAsync();
 
-            return RedirectPermanent("/Success");
+            return RedirectToActionPermanent("Success");
         }
 
         public IActionResult LoadCard()
@@ -71,11 +85,6 @@ namespace ChristmassCardGenerator.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private class SendCardViewModel
-        {
-            public Card Card { get; set; }
-            public List<IGrouping<ContactTypes,EmailList>> List { get; set; }
-        }
         public async Task<IActionResult> SendCard([Bind("ID,CardTitle,FromTitle,ImageName,Message")] Card card)
         {
             var list = await _context.EmailLists.Include(c => c.ApplicationUser).Where(c => c.ApplicationUser.UserName == User.Identity.Name).ToListAsync();
@@ -84,21 +93,30 @@ namespace ChristmassCardGenerator.Controllers
             SendCardViewModel viewModel = new SendCardViewModel();
             viewModel.Card = card;
             viewModel.List = groupedList;
+            TempData["Card"] = JsonSerializer.Serialize(card);
 
             return View(viewModel);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SendCard([Bind("ID,CardTitle,FromTitle,ImageName,Message")] Card card, ContactTypes contactType)
+        public async Task<IActionResult> SendCard(string id)
         {
-            var list = await _context.EmailLists.Where(e => e.ContactType == contactType || contactType.ToString() == "All").ToListAsync();
+            string contactType = id;
+            Card card = JsonSerializer.Deserialize<Card>(TempData["Card"] as string);
+            if (card == null)
+            {
+                return NotFound();
+            }
+            else TempData["Card"] = null;
+
+            var list = await _context.EmailLists.Include(e => e.ApplicationUser).Where(e => (contactType == "All" || e.ContactType == (ContactTypes)Enum.Parse(typeof(ContactTypes), contactType)) && e.ApplicationUser.UserName == User.Identity.Name).ToListAsync();
             if (list == null)
             {
                 return NotFound();
             }
+            var emailAddresses = list.Select(l => l.Email);
 
-            return RedirectPermanent("/Success");
+            return RedirectToActionPermanent("Success");
         }
     }
 }

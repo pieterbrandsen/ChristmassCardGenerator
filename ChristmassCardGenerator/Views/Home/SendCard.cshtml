@@ -1,35 +1,70 @@
-﻿@model List<IGrouping<ContactTypes, EmailList>>
+﻿@using ChristmassCardGenerator.Models;
+@using static ChristmassCardGenerator.ViewModels.Controllers.HomeControllerViewModel;
+@model SendCardViewModel
 
 @{
     ViewData["Title"] = "Send Card";
+    int totalCount = 0;
+    foreach (var item in Model.List)
+    {
+        totalCount += item.Count();
+    }
 }
 
-<h1>Select a card</h1>
+<h1>Select a emailList</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Count)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @item.Count();
-                    @item.Key;
-                </td>
-                <td>
-                    <a asp-action="Index" asp-route-id="@item">Use</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@if (totalCount == 0)
+{
+    <a asp-controller="EmailLists" asp-action="Create">Please create a email list before sending</a>
+    <br />
+    <br />
+}
+else
+{
+    <form method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        ContactType
+                    </th>
+                    <th>
+                        Count
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        Select All
+                    </td>
+                    <td>
+                        @totalCount
+                    </td>
+                    <td>
+                        <input type="submit" value="Use" asp-action="SendCard" asp-route-id="All" class="btn btn-primary btn-lg btn-block" />
+                    </td>
+                </tr>
+                @foreach (var item in Model.List)
+                {
+                    <tr>
+                        <td>
+                            @item.Key
+                        </td>
+                        <td>
+                            @item.Count()
+                        </td>
+                        <td>
+                            <input type="submit" value="Use" asp-action="SendCard" asp-route-id="@item.Key" class="btn btn-primary btn-lg btn-block" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+}
+
 
 <a asp-action="Index">Return to Homepage</a>
 <br />

@@ -57,7 +57,7 @@ namespace ChristmassCardGenerator.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Email")] EmailList emailList)
+        public async Task<IActionResult> Create([Bind("ID,Name,Email, ContactType")] EmailList emailList)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
             emailList.ApplicationUser = user;
@@ -91,7 +91,7 @@ namespace ChristmassCardGenerator.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Email")] EmailList emailList)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Email, ContactType")] EmailList emailList)
         {
             if (id != emailList.ID)
             {

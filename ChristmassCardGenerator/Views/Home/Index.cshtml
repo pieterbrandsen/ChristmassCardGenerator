@@ -25,15 +25,15 @@
                 <label asp-for="ImageName">Background Image:</label>
                 @if (Model != null)
                 {
-                    <select id="ImageName" name="@Model.ShortImageName">
-                        <option value="/img/Pony.png">Pony</option>
+                    <select id="ImageName" asp-for="ImageName">
+                        <option selected="selected" value="/img/Pony.png">Pony</option>
                         <option value="/img/Pony2.jpg">Pony2</option>
                     </select>
                 }
                 else
                 {
-                    <select id="ImageName">
-                        <option value="/img/Pony.png">Pony</option>
+                    <select id="ImageName" asp-for="ImageName">
+                        <option selected="selected" value="/img/Pony.png">Pony</option>
                         <option value="/img/Pony2.jpg">Pony2</option>
                     </select>
                 }
@@ -43,10 +43,17 @@
                 <label asp-for="Message">Message:</label>
                 <textarea asp-for="Message"></textarea>
                 <span asp-validation-for="Message" class="text-danger"></span>
-                <input name="LoadButton" type="submit" value="Load Card" />
-                <input name="SaveButton" type="submit" value="Save Card" />
-                <input name="SendButton" type="submit" value="Send Card" />
                 <input name="None" id="download-button" type="button" value="Download Card" />
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <input name="LoadButton" type="submit" value="Load Card" />
+                    <input name="SaveButton" type="submit" value="Save Card" />
+                    <input name="SendButton" type="submit" value="Send Card" />
+                }
+                else
+                {
+                    <p>Please login to save and send cards</p>
+                }
             </div>
         </form>
     </div>

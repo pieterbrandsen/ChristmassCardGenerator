@@ -42,6 +42,9 @@ namespace ChristmassCardGenerator
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
+            services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSession();
 
 
             services.AddTransient<IEmailSender, EmailSender>();
