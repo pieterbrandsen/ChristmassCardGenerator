@@ -42,18 +42,17 @@ namespace ChristmassCardGenerator
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
+            services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSession();
 
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.Configure<RazorViewEngineOptions>(o =>
             {
-                o.ViewLocationFormats.Add
-        ("/Areas/Identity/Pages/Account/Manage/EmailLists/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
-                o.ViewLocationFormats.Add
-("/Areas/Identity/Pages/Account/Manage/Cards/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
-                o.ViewLocationFormats.Add
-("/Areas/Identity/Pages/Account/Manage/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
+                o.ViewLocationFormats.Add("/Areas/Identity/Pages/Account/Manage/{1}/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
+                o.ViewLocationFormats.Add("/Areas/Identity/Pages/Account/Manage/{0}" + Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine.ViewExtension);
             });
 
         }
@@ -82,7 +81,9 @@ namespace ChristmassCardGenerator
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

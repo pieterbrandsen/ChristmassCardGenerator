@@ -1,4 +1,7 @@
-﻿@{
+﻿@model ChristmassCardGenerator.Models.Card
+@using ChristmassCardGenerator.Constants
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -10,38 +13,80 @@
     <h1>Build Your Own Holiday Cards</h1>
 
     <div class="row form-container">
-        <div class="one-half column">
-            <form>
-                <label for="title">Card Title:</label>
-                <input type="text" id="title" name="title">
-                <label for="from">From:</label>
-                <input type="text" id="from" name="from">
-                <label for="image">Background Image:</label>
-                <select id="image">
-                    <option value="./img/pony.png">Pony</option>
-                    <option value="./img/Pony2.jpg">Pony2</option>
-                </select>
-            </form>
-        </div>
-        <div class="one-half column">
-            <form>
-                <label for="msg">Message:</label>
-                <textarea id="msg" name="message"></textarea>
-                <button id="save-button">Save Card</button>
-            </form>
-        </div>
+        <form asp-action="Card">
+            <div class="one-half column">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <label asp-for="CardTitle">Card Title:</label>
+                <input asp-for="CardTitle" type="text" id="CardTitle">
+                <span asp-validation-for="CardTitle" class="text-danger"></span>
+                <label asp-for="FromTitle">From:</label>
+                <input asp-for="FromTitle" type="text" id="FromTitle">
+                <span asp-validation-for="FromTitle" class="text-danger"></span>
+                <label asp-for="ImageName">Background Image:</label>
+                @if (Model != null)
+                {
+                    <select id="ImageName" asp-for="ImageName">
+                        <option selected="selected" value="/img/Pony.png">Pony</option>
+                        <option value="/img/Pony2.jpg">Pony2</option>
+                    </select>
+                }
+                else
+                {
+                    <select id="ImageName" asp-for="ImageName">
+                        <option selected="selected" value="/img/Pony.png">Pony</option>
+                        <option value="/img/Pony2.jpg">Pony2</option>
+                    </select>
+                }
+                <span asp-validation-for="ImageName" class="text-danger"></span>
+            </div>
+            <div class="one-half column">
+                <label asp-for="Message">Message:</label>
+                <textarea asp-for="Message"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+                <input name="None" id="download-button" type="button" value="Download Card" />
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <input name="LoadButton" type="submit" value="Load Card" />
+                    <input name="SaveButton" type="submit" value="Save Card" />
+                    <input name="SendButton" type="submit" value="Send Card" />
+                }
+                else
+                {
+                    <p>Please login to save and send cards</p>
+                }
+            </div>
+        </form>
     </div>
 
-    <div id="card-container" class="row">
-        <div class="one-third column text-container">
-            <h2 id="card-title">Happy Holidays!</h2>
-            <p id="card-msg">Lorum Ipsum and a Happy New Year! We would like to thank our entire community for their support this year. We enjoyed all the challenged and achievements 2017 brought our way and we’re looking forward to what 2018 will bring.<br><br>May your holidays be filled with code and cocoa!</p>
-            <h3 id="card-from">Love Lighthouse Labs</h3>
-        </div>
-        <div class="two-thirds column">
-            <img src="./img/Pony.png" id="card-image">
-            <div id="snow"></div>
-        </div>
+    <div class="mb-md-5">
+        @if (Model == null)
+        {
+            <div id="card-container" class="row">
+                <div class="one-third column text-container">
+                    <h2 id="card-title">@DefaultCardValues.CardTitle</h2>
+                    <p id="card-msg">@DefaultCardValues.Message</p>
+                    <h3 id="card-from">@DefaultCardValues.FromTitle</h3>
+                </div>
+                <div class="two-thirds column">
+                    <img src="/img/@DefaultCardValues.ImageName" id="card-image">
+                    <div id="snow"></div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div id="card-container" class="row">
+                <div class="one-third column text-container">
+                    <h2 id="card-title">@Model.CardTitle</h2>
+                    <p id="card-msg">@Model.Message</p>
+                    <h3 id="card-from">@Model.FromTitle</h3>
+                </div>
+                <div class="two-thirds column">
+                    <img src="/img/@Model.ImageName" id="card-image">
+                    <div id="snow"></div>
+                </div>
+            </div>
+        }
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
@@ -52,13 +97,12 @@
         var cardMsg = document.getElementById('card-msg');
         var cardFrom = document.getElementById('card-from');
 
-        var formTitle = document.getElementById('title');
-        var formFrom = document.getElementById('from');
-        var formMsg = document.getElementById('msg');
-        var formImage = document.getElementById('image');
+        var formTitle = document.getElementById('CardTitle');
+        var formFrom = document.getElementById('FromTitle');
+        var formMsg = document.getElementById('Message');
+        var formImage = document.getElementById('ImageName');
 
-        var saveButton = document.getElementById('save-button');
-
+        var downloadButton = document.getElementById('download-button');
 
 
         formTitle.addEventListener('keyup', function (event) {
@@ -84,7 +128,7 @@
             link.click();
         }
 
-        saveButton.addEventListener('click', function (event) {
+        downloadButton.addEventListener('click', function (event) {
             event.preventDefault();
             html2canvas(cardContainer, {
                 onrendered: function (canvas) {

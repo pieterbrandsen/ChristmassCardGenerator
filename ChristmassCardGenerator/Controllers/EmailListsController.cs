@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using ChristmassCardGenerator.DAL;
 using ChristmassCardGenerator.Models;
 
+using Microsoft.AspNetCore.Identity;
+
 namespace ChristmassCardGenerator.Controllers
 {
     [Route("/Identity/Account/Manage/EmailLists/[Action]")]
@@ -23,7 +25,7 @@ namespace ChristmassCardGenerator.Controllers
         // GET: EmailLists
         public async Task<IActionResult> Index()
         {
-            return View(await _context.EmailLists.ToListAsync());
+            return View(await _context.EmailLists.Include(c => c.ApplicationUser).Where(c => c.ApplicationUser.UserName == User.Identity.Name).ToListAsync());
         }
 
         // GET: EmailLists/Details/5
@@ -55,8 +57,10 @@ namespace ChristmassCardGenerator.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name")] EmailList emailList)
+        public async Task<IActionResult> Create([Bind("ID,Name,Email, ContactType")] EmailList emailList)
         {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
+            emailList.ApplicationUser = user;
             if (ModelState.IsValid)
             {
                 _context.Add(emailList);
@@ -87,7 +91,7 @@ namespace ChristmassCardGenerator.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] EmailList emailList)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Email, ContactType")] EmailList emailList)
         {
             if (id != emailList.ID)
             {
