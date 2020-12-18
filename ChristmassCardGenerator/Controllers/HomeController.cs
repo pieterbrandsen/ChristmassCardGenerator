@@ -29,28 +29,8 @@ namespace ChristmassCardGenerator.Controllers
             _logger = logger;
             _context = context;
         }
-        public IActionResult sendEmail()
-        {
-            HtmlToPdfConverter converter = new HtmlToPdfConverter();
-            WebKitConverterSettings settings = new WebKitConverterSettings();
 
-            converter.ConverterSettings = settings;
-
-            PdfDocument document = converter.Convert("wwwroot\\img\\Pony.png");
-
-            MemoryStream ms = new MemoryStream();
-            document.Save(ms);
-            document.Close(true);
-
-            ms.Position = 0;
-
-            FileStreamResult fileStreamResult = new FileStreamResult(ms, "application/pdf");
-            fileStreamResult.FileDownloadName = "test.pdf";
-
-            return fileStreamResult;
-        }
         public async Task<IActionResult> Index(int? id)
-            settings.WebKitPath = Path.Combine(_env.ContentRootPath, "img");
         {
             if (id == null)
             {
@@ -141,7 +121,25 @@ namespace ChristmassCardGenerator.Controllers
             }
             var emailAddresses = list.Select(l => l.Email);
 
-            return RedirectToActionPermanent("Success");
+            HtmlToPdfConverter converter = new HtmlToPdfConverter();
+            WebKitConverterSettings settings = new WebKitConverterSettings();
+
+            converter.ConverterSettings = settings;
+
+            PdfDocument document = converter.Convert("wwwroot\\img\\Pony.png");
+
+            MemoryStream ms = new MemoryStream();
+            document.Save(ms);
+            document.Close(true);
+
+            ms.Position = 0;
+
+            FileStreamResult fileStreamResult = new FileStreamResult(ms, "application/pdf");
+            fileStreamResult.FileDownloadName = "test.pdf";
+
+            return fileStreamResult;
+
+            //return RedirectToActionPermanent("Success");
         }
     }
 }
