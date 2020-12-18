@@ -28,6 +28,10 @@
                 <label for="msg">Message:</label>
                 <textarea id="msg" name="message"></textarea>
                 <button id="save-button">Save Card</button>
+                @using (Html.BeginForm("sendEmail", "HomeController"))
+                {
+                    <button type="submit">Send mail</button>
+                }
             </form>
         </div>
     </div>
