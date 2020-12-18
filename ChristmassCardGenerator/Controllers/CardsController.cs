@@ -8,27 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using ChristmassCardGenerator.DAL;
 using ChristmassCardGenerator.Models;
 
-using Microsoft.AspNetCore.Identity;
-
 namespace ChristmassCardGenerator.Controllers
 {
-    [Route("/Identity/Account/Manage/EmailLists/[Action]")]
-    public class EmailListsController : Controller
+    [Route("/Identity/Account/Manage/Cards/[Action]")]
+    public class CardsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public EmailListsController(ApplicationDbContext context)
+        public CardsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: EmailLists
+        // GET: Cards
         public async Task<IActionResult> Index()
         {
-            return View(await _context.EmailLists.Include(c => c.ApplicationUser).Where(c => c.ApplicationUser.UserName == User.Identity.Name).ToListAsync());
+            return View(await _context.Cards.Include(c => c.ApplicationUser).Where(c => c.ApplicationUser.UserName == User.Identity.Name).ToListAsync());
         }
 
-        // GET: EmailLists/Details/5
+        // GET: Cards/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,41 +34,23 @@ namespace ChristmassCardGenerator.Controllers
                 return NotFound();
             }
 
-            var emailList = await _context.EmailLists
+            var card = await _context.Cards
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (emailList == null)
+            if (card == null)
             {
                 return NotFound();
             }
 
-            return View(emailList);
+            return View(card);
         }
 
-        // GET: EmailLists/Create
+        // GET: Cards/Create
         public IActionResult Create()
         {
-            return View();
+            return RedirectPermanent("/");
         }
 
-        // POST: EmailLists/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Email, ContactType")] EmailList emailList)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == User.Identity.Name);
-            emailList.ApplicationUser = user;
-            if (ModelState.IsValid)
-            {
-                _context.Add(emailList);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(emailList);
-        }
-
-        // GET: EmailLists/Edit/5
+        // GET: Cards/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,22 +58,22 @@ namespace ChristmassCardGenerator.Controllers
                 return NotFound();
             }
 
-            var emailList = await _context.EmailLists.FindAsync(id);
-            if (emailList == null)
+            var card = await _context.Cards.FindAsync(id);
+            if (card == null)
             {
                 return NotFound();
             }
-            return View(emailList);
+            return View(card);
         }
 
-        // POST: EmailLists/Edit/5
+        // POST: Cards/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Email, ContactType")] EmailList emailList)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,CardTitle,FromTitle,ImageName,Message")] Card card)
         {
-            if (id != emailList.ID)
+            if (id != card.ID)
             {
                 return NotFound();
             }
@@ -102,12 +82,12 @@ namespace ChristmassCardGenerator.Controllers
             {
                 try
                 {
-                    _context.Update(emailList);
+                    _context.Update(card);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmailListExists(emailList.ID))
+                    if (!CardExists(card.ID))
                     {
                         return NotFound();
                     }
@@ -118,10 +98,10 @@ namespace ChristmassCardGenerator.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(emailList);
+            return View(card);
         }
 
-        // GET: EmailLists/Delete/5
+        // GET: Cards/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,30 +109,30 @@ namespace ChristmassCardGenerator.Controllers
                 return NotFound();
             }
 
-            var emailList = await _context.EmailLists
+            var card = await _context.Cards
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (emailList == null)
+            if (card == null)
             {
                 return NotFound();
             }
 
-            return View(emailList);
+            return View(card);
         }
 
-        // POST: EmailLists/Delete/5
+        // POST: Cards/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var emailList = await _context.EmailLists.FindAsync(id);
-            _context.EmailLists.Remove(emailList);
+            var card = await _context.Cards.FindAsync(id);
+            _context.Cards.Remove(card);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmailListExists(int id)
+        private bool CardExists(int id)
         {
-            return _context.EmailLists.Any(e => e.ID == id);
+            return _context.Cards.Any(e => e.ID == id);
         }
     }
 }
